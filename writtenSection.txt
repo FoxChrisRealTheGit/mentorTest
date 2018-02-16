@@ -2,27 +2,80 @@ Answer each question in a written format
 
 1. What does semantic HTML mean?
 
+Semantic HTML is the way of writing HTML to section off elements for what they represent in readable english. It is possible to write custom Semantic names; however, it is best practice to stick to already written semantic tags. Some examples of this are the use of <header></header> for a header and <footer></footer> for a footer. Semantic HTML makes html code more readable and decipherable, as well as allowing for easier styling through use of CSS.
+
 2. What is the box model?
+
+The box model is the name for how items are placed in a web environment and manipulated through CSS. It starts in the center with the content. Working out from the content we have padding, border, and margin. Adding values to margin can increase the overall size of the box, so I tend to use box-sizing: border-box in a reset file to mitigate page sizing issues.
+
 
 3. What is the difference between IDs and Classes?
 
+Id's are used as an attribute in HTML for referring to a single element. These can also be used to hash anchor to specific places on a page. Classes can be used for multiple elements to keep code dry. In CSS an id is referenced by a # before the name, whereas a class is referenced with a . before the name.
+
 4. What does the z-index do?
+
+The z-index changes the depth of a positioned element on the page. I had to use this extensively to solves issues with stacking order in react-stylux. A higher z-index will take visual precedence over a lower z-index.
 
 5. Summarize what the keyword 'this' is used for?
 
+The keyword 'this' is used for referring to an item and it inherits its meaning through context. It can be explicitly defined through binding, implicitly through chaining, or maintain the default meaning which will probably be window.
+
 6. What is a callback?
+
+A callback is using a function in an area of code. It is a concept used heavily in functional programming because it is possible to nest callbacks many layers deep. Callbacks are also used in various array methods and other prototype methods. An example of a callback can be seen as:
+function add (num1, num2){
+    return num1 + num2
+}
+
+function doSomething(cb, num1, num2){
+    return cb(num1, num2)
+}
+
+
 
 7. What is a closure?
 
+A closure is the concept of returning a function within a function. There are many use cases of closures, but a major use case is to control access to variables that would otherwise be on global scope. With a closure it is possible to mitigate possible eve scenarios, while still maintaining expected data. An example of a closure can be seen:
+function closes(num){
+    var count = num;
+    return function(num1){
+        return count + num1
+    }
+}
+
 8. How does prototype work?
+
+A prototype is casted to the item that it is in reference to. There are a number of built in prototypes for already defined JavaScript items/objects such as object, string, array, etc. It is also possible to make your own prototypes for constructor functions to keep a code base dry. This would be done through:
+function person (name){
+    this.name =name
+}
+
+person.prototype.sayName = ()=>{
+    return this.name
+}
+var jas = new person('jas')
+jas.sayName()
 
 9. What is MVC?
 
+MVC is the model view controller. It is a pattern of design to allow for easy access for other individuals into a previously known or unknown code base. This pattern will allow the previously mentioned individual to easily change an item in an efficient manner. As far as I understand, Angular has this directly tied to its framework.
+
+
 10. What is the component lifecycle?
+
+The component lifecycle is the reference to methods that are called at specific points within the life of a component. There are two that we used heavily during the cohort. Those two are ComponentDidMount and ComponentWillRecieveProps. ComponentDidMount can be used to setState and is fired directly after initial render. It is an error of no-op to update state on a ountain or unmounted component, so ComponentDidMount is great for setting state needed beyond intial default values. ComponentWillRecieveProps is fired during the props changes and takes in newprops. I used these extensively while creating react-stylux to allow for dynamic updating through props.
+
 
 11. What is REST?
 
+REST is REpresented State Transfer. It is a design concept for transferring data. There are four operations. The first is post, which adds new data. The second is get, which gets data, the third is put, which updates data, and the fourth is delete, which removes data.
+
+
 12. Name three ways of getting data from the URL using express
+
+Through express we have a number of options available for use with the request. We can use request.path to get the data of the path used, we can use request.params to get the data of params used. To access specific param names, we can use request.params.whateverTheNameIs}. We can also use request.query to get the data of the query specified.
+
 
 create table users (
 id serial,
@@ -33,9 +86,17 @@ email varchar(255)
 12. Given the Schema above, write the following four basic CRUD db queries using postgres syntax
 
 -Get all users:
+SELECT * FROM users
 
 -Create a new user with the name of 'your name' and an email of 'fake@fake.com':
+INSERT INTO users (name, email)
+    values ('your name', 'fake@fake.com')
 
 -Update the newly created user's name to 'Bobby Boy':
+UPDATE users
+    SET name = 'Bobby Boy'
+    WHERE id = 1
 
 -Delete the newly updated user:
+DELETE FROM users 
+    WHERE id = 1
